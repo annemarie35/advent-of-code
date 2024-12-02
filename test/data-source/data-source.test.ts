@@ -1,4 +1,4 @@
-import { transformArray, readFile, sortAscendant } from '../../src/data-source/data-source'
+import { transformArray, readFile, sortAscendant, findSimilarityScore } from '../../src/data-source/data-source'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -43,6 +43,22 @@ describe('Data Source', () => {
                 [3, 9],
                 [3, 3]
             ])
+        })
+    })
+
+    describe('find similarity score', () => {
+        const locationIdsToCompute: number[][] = [
+            [3, 9],
+            [4, 4],
+            [8, 0]
+        ]
+
+        locationIdsToCompute.forEach(([locationIdToFind, result]) => {
+            it(`should calculate the similarity score for ${locationIdToFind} locationIdToFind`, async () => {
+                const locationIdsToAnalyse = [4, 3, 5, 3, 9, 3]
+                const response = findSimilarityScore({ locationIdsToAnalyse, locationIdToFind })
+                expect(response).toEqual(result)
+            })
         })
     })
 })

@@ -29,6 +29,19 @@ export const transformArray = (arrayToCompute: number[][]): number[][] => {
     return newArray
 }
 
+export const findSimilarityScore = ({
+    locationIdsToAnalyse,
+    locationIdToFind
+}: {
+    locationIdsToAnalyse: number[]
+    locationIdToFind: number
+}): number => {
+    const locationIdsDuplicates = locationIdsToAnalyse.filter((locationId: number) => {
+        return locationId === locationIdToFind
+    })
+    return locationIdsDuplicates.length * locationIdToFind
+}
+
 function compareNumbers(a: number, b: number) {
     return a - b
 }
