@@ -1,11 +1,11 @@
 {
-  "name": "Advent of code 2024",
+  "name": "Adventofcode2024",
   "version": "1.0.0",
   "description": "Advent of code 2024",
   "main": "index.js",
   "scripts": {
     "script": "ts-node",
-    "test": "jest *",
+    "test": "jest * --verbose",
     "lint": "eslint .",
     "format": "prettier --write --ignore-path .gitignore ."
   },
