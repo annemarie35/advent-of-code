@@ -45,3 +45,13 @@ export const findSimilarityScore = ({
 function compareNumbers(a: number, b: number) {
     return a - b
 }
+
+export const isIncreasing = (report: number[]): boolean => {
+    for (let i = 1; i < report.length; i++) {
+        if (report[i] <= report[i - 1]) {
+            return false
+        }
+    }
+
+    return true
+}

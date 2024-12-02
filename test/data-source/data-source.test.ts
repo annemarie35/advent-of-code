@@ -1,4 +1,10 @@
-import { transformArray, readFile, sortAscendant, findSimilarityScore } from '../../src/data-source/data-source'
+import {
+    transformArray,
+    readFile,
+    sortAscendant,
+    findSimilarityScore,
+    isIncreasing
+} from '../../src/data-source/data-source'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -46,7 +52,7 @@ describe('Data Source', () => {
         })
     })
 
-    describe('find similarity score', () => {
+    describe('Find similarity score', () => {
         const locationIdsToCompute: number[][] = [
             [3, 9],
             [4, 4],
@@ -58,6 +64,21 @@ describe('Data Source', () => {
                 const locationIdsToAnalyse = [4, 3, 5, 3, 9, 3]
                 const response = findSimilarityScore({ locationIdsToAnalyse, locationIdToFind })
                 expect(response).toEqual(result)
+            })
+        })
+    })
+
+    describe('isIncreasing', () => {
+        const reports: (boolean | number[])[][] = [
+            [[1, 2, 7, 8, 9], true],
+            [[1, 3, 6, 7, 9], true],
+            [[8, 6, 4, 4, 1], false],
+            [[1, 3, 2, 4, 5], false]
+        ]
+
+        reports.forEach(([report, result]) => {
+            it(`should verify if all values are increasing for report ${report}`, async () => {
+                expect(isIncreasing(report as number[])).toBe(result)
             })
         })
     })
