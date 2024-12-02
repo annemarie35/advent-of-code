@@ -1,6 +1,6 @@
 import * as fs from 'node:fs'
 
-export const readFile = async (filePath: string) => {
+export const readFile = async (filePath: string): Promise<number[][]> => {
     let leftList: number[] = []
     let rightList: number[] = []
 
@@ -15,4 +15,12 @@ export const readFile = async (filePath: string) => {
     } catch (err) {
         console.error(err)
     }
+}
+
+export const sortAscendant = (arrayToSort: number[]): number[] => {
+    return arrayToSort.sort(compareNumbers)
+}
+
+function compareNumbers(a: number, b: number) {
+    return a - b
 }
