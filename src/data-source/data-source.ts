@@ -11,7 +11,7 @@ export const readFile = async (filePath: string): Promise<number[][]> => {
             leftList.push(Number(lineArray[0]))
             rightList.push(Number(lineArray[1]))
         })
-        return [leftList, rightList]
+        return [sortAscendant(leftList), sortAscendant(rightList)]
     } catch (err) {
         console.error(err)
     }

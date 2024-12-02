@@ -10,8 +10,8 @@ describe('Data Source', () => {
                 `${process.env.DIRNAME_PATH}advent-of-code-2024/test/data-source/text-day-1-test.txt`
             )
             expect(response).toEqual([
-                [61967, 11022],
-                [56543, 54992]
+                [11022, 61967],
+                [54992, 56543]
             ])
         })
     })
