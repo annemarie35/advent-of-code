@@ -1,0 +1,6 @@
+# OS & IDE Directories
+.DS_Store
+.idea/
+
+# NODE
+node_modules
