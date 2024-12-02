@@ -21,6 +21,14 @@ export const sortAscendant = (arrayToSort: number[]): number[] => {
     return arrayToSort.sort(compareNumbers)
 }
 
+export const transformArray = (arrayToCompute: number[][]): number[][] => {
+    let newArray: number[][] = []
+    for (let i: number = 0; i < arrayToCompute[0].length; i++) {
+        newArray.push([arrayToCompute[0][i], arrayToCompute[1][i]])
+    }
+    return newArray
+}
+
 function compareNumbers(a: number, b: number) {
     return a - b
 }
