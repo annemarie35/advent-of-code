@@ -83,3 +83,20 @@ export const isGraduallyIncreasingOrDecreasing = (report: number[]): boolean => 
     }
     return true
 }
+
+export const isReportSafe = (report: number[]): boolean => {
+    return (isDecreasing(report) || isIncreasing(report)) && isGraduallyIncreasingOrDecreasing(report)
+}
+
+export const isSafeRegardlessWichLevelIsMoved = (report: number[]) => {
+    let newArray: number[] = []
+    let countSafeReportsWithLevelMoved = 0
+
+    report.forEach((_, index) => {
+        newArray = [...report]
+        newArray.splice(index, 1)
+        countSafeReportsWithLevelMoved += isReportSafe(newArray) ? 1 : 0
+    })
+
+    return countSafeReportsWithLevelMoved !== 0
+}
