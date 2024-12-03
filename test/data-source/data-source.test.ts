@@ -3,7 +3,9 @@ import {
     readFile,
     sortAscendant,
     findSimilarityScore,
-    isIncreasing
+    isIncreasing,
+    isGraduallyIncreasingOrDecreasing,
+    isDecreasing
 } from '../../src/data-source/data-source'
 import dotenv from 'dotenv'
 
@@ -79,6 +81,40 @@ describe('Data Source', () => {
         reports.forEach(([report, result]) => {
             it(`should verify if all values are increasing for report ${report}`, async () => {
                 expect(isIncreasing(report as number[])).toBe(result)
+            })
+        })
+    })
+
+    describe('isDecreasing', () => {
+        const reports: (boolean | number[])[][] = [
+            [[7, 6, 4, 2, 1], true],
+            [[1, 2, 7, 8, 9], false],
+            [[9, 7, 6, 2, 1], true],
+            [[1, 3, 2, 4, 5], false],
+            [[8, 6, 4, 4, 1], false],
+            [[1, 3, 6, 7, 9], false]
+        ]
+
+        reports.forEach(([report, result]) => {
+            it(`should verify if all values are decreasing for report ${report}`, async () => {
+                expect(isDecreasing(report as number[])).toBe(result)
+            })
+        })
+    })
+
+    describe('isGraduallyIncreasingOrDecreasing', () => {
+        const reports: (boolean | number[])[][] = [
+            [[7, 6, 4, 2, 1], true],
+            [[1, 2, 7, 8, 9], false],
+            [[9, 7, 6, 2, 1], false],
+            [[1, 3, 2, 4, 5], true],
+            [[8, 6, 4, 4, 1], false],
+            [[1, 3, 6, 7, 9], true]
+        ]
+
+        reports.forEach(([report, result]) => {
+            it(`should verify if all values are increasing or decreasing gradually by at least one and at most three for report ${report}`, async () => {
+                expect(isGraduallyIncreasingOrDecreasing(report as number[])).toBe(result)
             })
         })
     })

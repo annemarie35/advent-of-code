@@ -27,6 +27,9 @@ export const transformArray = (arrayToCompute: number[][]): number[][] => {
         newArray.push([arrayToCompute[0][i], arrayToCompute[1][i]])
     }
     return newArray
+
+    // With map and slice instead of old school loop style
+    // return arrayToCompute[0].map((_, index) => arrayToCompute.slice(1).map((array) => array[index]))
 }
 
 export const findSimilarityScore = ({
@@ -53,5 +56,26 @@ export const isIncreasing = (report: number[]): boolean => {
         }
     }
 
+    return true
+}
+
+export const isDecreasing = (report: number[]): boolean => {
+    for (let i = 1; i < report.length; i++) {
+        if (report[i] >= report[i - 1]) {
+            return false
+        }
+    }
+
+    return true
+}
+
+export const isGraduallyIncreasingOrDecreasing = (report: number[]): boolean => {
+    for (let i = 1; i < report.length; i++) {
+        const isGraduallyIncreasingOrDecreasing =
+            Math.abs(report[i] - report[i - 1]) <= 3 && Math.abs(report[i] - report[i - 1]) >= 1
+        if (!isGraduallyIncreasingOrDecreasing) {
+            return false
+        }
+    }
     return true
 }
