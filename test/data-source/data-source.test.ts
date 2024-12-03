@@ -8,12 +8,12 @@ import {
     readFile,
     transformDataForDay1,
     isReportSafe,
-    isSafeRegardlessWichLevelIsMoved
+    isSafeRegardlessWichLevelIsMoved,
+    removeInvalidChars
 } from '../../src/data-source/data-source'
 import dotenv from 'dotenv'
 
 dotenv.config()
-
 describe('Data Source', () => {
     describe('Read file', () => {
         it('Should be able to read file and return an array', async () => {
@@ -152,6 +152,17 @@ describe('Data Source', () => {
         reports.forEach(([report, result]) => {
             it(`should verify if report ${report} is safe : ${result}`, async () => {
                 expect(isSafeRegardlessWichLevelIsMoved(report as number[])).toBe(result)
+            })
+        })
+    })
+
+    describe('removeInvalidChars', () => {
+        const toBeCleaned: string[][] = [
+            ['xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))', 'mul2,4mul5,5mul11,8mul8,5']
+        ]
+        toBeCleaned.forEach(([corruptedProgram, cleanedProgram]) => {
+            it(`should verify if corruptedProgram ${corruptedProgram} is cleaned`, async () => {
+                expect(removeInvalidChars(corruptedProgram)).toBe(cleanedProgram)
             })
         })
     })
