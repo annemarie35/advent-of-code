@@ -1,18 +1,22 @@
-import { findSimilarityScore, readFile, sortAscendant, transformArray } from './data-source/data-source'
+import { findSimilarityScore, readFile, transformArray, transformDataForDay1 } from './data-source/data-source'
 
 export const solveDay1 = async (filePath: string): Promise<number> => {
-    const file = await readFile(filePath)
+    const data = await readFile(filePath)
+    const [leftList, rightList] = transformDataForDay1(data)
+
     let positionsArray: number[][]
     let positionsArrayTransformed: number[][]
 
-    positionsArray = [sortAscendant(file[0]), sortAscendant(file[1])]
+    positionsArray = [leftList, rightList]
+
     positionsArrayTransformed = transformArray(positionsArray)
 
     return computeTotalDistance(positionsArrayTransformed)
 }
 
-export const solveDay2 = async (filePath: string): Promise<number> => {
-    const [leftList, rightList] = await readFile(filePath)
+export const solveDay1SecondPart = async (filePath: string): Promise<number> => {
+    const data = await readFile(filePath)
+    const [leftList, rightList] = transformDataForDay1(data)
 
     return computeTotalSimilarityScore({ leftList, rightList })
 }

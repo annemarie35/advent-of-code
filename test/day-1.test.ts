@@ -1,4 +1,4 @@
-import { solveDay1, solveDay2 } from '../src/day-1'
+import { solveDay1, solveDay1SecondPart } from '../src/day-1'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -15,7 +15,7 @@ describe('computeTotalDistance', () => {
 
 describe('computeTotalSimilarityScore', () => {
     it('should return 31 as example given', async () => {
-        const totalSimilarityScore = await solveDay2(
+        const totalSimilarityScore = await solveDay1SecondPart(
             `${process.env.DIRNAME_PATH}advent-of-code-2024/test/data-source/text-day-1-example.txt`
         )
 

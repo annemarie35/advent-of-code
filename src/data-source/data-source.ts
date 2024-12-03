@@ -1,20 +1,24 @@
 import * as fs from 'node:fs'
 
-export const readFile = async (filePath: string): Promise<number[][]> => {
-    let leftList: number[] = []
-    let rightList: number[] = []
-
+export const readFile = async (filePath: string): Promise<string> => {
     try {
         const data = await fs.readFileSync(filePath, 'utf8')
-        data.split(/\r?\n/).forEach((line) => {
-            const lineArray = line.replace('   ', ' ').split(' ')
-            leftList.push(Number(lineArray[0]))
-            rightList.push(Number(lineArray[1]))
-        })
-        return [sortAscendant(leftList), sortAscendant(rightList)]
+        return data
     } catch (err) {
         console.error(err)
     }
+}
+
+export const transformDataForDay1 = (data: string) => {
+    let leftList: number[] = []
+    let rightList: number[] = []
+
+    data.split(/\r?\n/).forEach((line) => {
+        const lineArray = line.replace('   ', ' ').split(' ')
+        leftList.push(Number(lineArray[0]))
+        rightList.push(Number(lineArray[1]))
+    })
+    return [sortAscendant(leftList), sortAscendant(rightList)]
 }
 
 export const sortAscendant = (arrayToSort: number[]): number[] => {

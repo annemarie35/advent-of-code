@@ -1,11 +1,12 @@
 import {
     transformArray,
-    readFile,
     sortAscendant,
     findSimilarityScore,
     isIncreasing,
     isGraduallyIncreasingOrDecreasing,
-    isDecreasing
+    isDecreasing,
+    readFile,
+    transformDataForDay1
 } from '../../src/data-source/data-source'
 import dotenv from 'dotenv'
 
@@ -17,7 +18,7 @@ describe('Data Source', () => {
             const response = await readFile(
                 `${process.env.DIRNAME_PATH}advent-of-code-2024/test/data-source/text-day-1-test.txt`
             )
-            expect(response).toEqual([
+            expect(transformDataForDay1(response)).toEqual([
                 [11022, 61967],
                 [54992, 56543]
             ])
