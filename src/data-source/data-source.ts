@@ -101,7 +101,11 @@ export const isSafeRegardlessWichLevelIsMoved = (report: number[]) => {
     return countSafeReportsWithLevelMoved !== 0
 }
 
-export const removeInvalidChars = (corruptedInput: string): string => {
-    const remove = corruptedInput.match(/mul\(\d+,\d+\)/g).join('')
-    return remove.replace(/\(([^)]+)\)/g, (_, inner) => inner)
+// TODO Remove unused method
+export const removeInvalidInstructions = (corruptedInput: string): string => {
+    return corruptedInput.match(/mul\(\d+,\d+\)/g).join('')
+}
+// TODO Remove unused method
+export const removeEnabledInstructions = (corruptedInput: string): string => {
+    return corruptedInput.replace(/don't\(\)[\s\S]*?do\(\)/g, '')
 }

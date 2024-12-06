@@ -9,7 +9,8 @@ import {
     transformDataForDay1,
     isReportSafe,
     isSafeRegardlessWichLevelIsMoved,
-    removeInvalidChars
+    removeInvalidInstructions,
+    removeEnabledInstructions
 } from '../../src/data-source/data-source'
 import dotenv from 'dotenv'
 
@@ -158,11 +159,33 @@ describe('Data Source', () => {
 
     describe('removeInvalidChars', () => {
         const toBeCleaned: string[][] = [
-            ['xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))', 'mul2,4mul5,5mul11,8mul8,5']
+            [
+                'xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))',
+                'mul(2,4)mul(5,5)mul(11,8)mul(8,5)'
+            ]
         ]
         toBeCleaned.forEach(([corruptedProgram, cleanedProgram]) => {
             it(`should verify if corruptedProgram ${corruptedProgram} is cleaned`, async () => {
-                expect(removeInvalidChars(corruptedProgram)).toBe(cleanedProgram)
+                expect(removeInvalidInstructions(corruptedProgram)).toBe(cleanedProgram)
+            })
+        })
+    })
+
+    describe('removeEnabledInstructions', () => {
+        const toBeCleaned: string[][] = [
+            [
+                "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))",
+                'xmul(2,4)&mul[3,7]!^?mul(8,5))'
+            ],
+            ['', ''],
+            [
+                "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)don't()>^@<%who()'mul(365,15)(<^<# (where()mul(802,710)why()*[(  where()where()mul(684,352)&)&what()^<[>mul(246,913)+select()?how(489,271)when() }why(627,30);don't()+&<@where()when()mul(636,990)]undo()?mul(8,5))",
+                'xmul(2,4)&mul[3,7]!^?mul(8,5))'
+            ]
+        ]
+        toBeCleaned.forEach(([corruptedProgram, cleanedProgram]) => {
+            it(`should verify if corruptedProgram ${corruptedProgram} is cleaned`, async () => {
+                expect(removeEnabledInstructions(corruptedProgram)).toBe(cleanedProgram)
             })
         })
     })
