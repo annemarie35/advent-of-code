@@ -24,7 +24,7 @@ export const solveDay3SecondPart = async (filePath: string) => {
 
     const enabledInstructions = corruptedCode
         .split(/(?=do\(\)|don\'t\(\))/g)
-        .filter((tit) => !tit.startsWith("don't()"))
+        .filter((instructions) => !instructions.startsWith("don't()"))
     const validInstructions = enabledInstructions.toString().matchAll(/mul\((\d+),(\d+)\)/g)
 
     total = computeInstructions(validInstructions, total)
